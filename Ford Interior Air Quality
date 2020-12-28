@@ -1,0 +1,71 @@
+# A Python program to print all different flow combinations 
+# from a given set of venturis
+#README
+#when executed, this program outputs a .csv file
+#.csv files can be easily extracted from in excel 
+#for further plotting and data analysis
+#
+#When changing the number of venturis, change length 
+#in line 16, add variable of v(#) within venturi sizes,
+#and add v(#) to the combinations function in line 36. 
+
+#
+
+from itertools import combinations
+
+length = 8
+j = 1
+counter = 0
+datalist = []
+
+"Venturi sizes"
+"**************"
+v1 = .006
+v2 = .006
+v3 = .01
+v4 = .006
+v5 = .021
+v6 = .05
+v7 = .554
+v8 = 1.65
+
+
+"****************"   
+#combinations of venturis and inputting into a list
+while j<(length+1):  
+    comb = combinations([v1, v2, v3, v4, v5, v6, v7, v8], j)
+
+    for i in list(comb):
+        tup = []
+        counter += 1
+        summ = sum(i)
+        #tuple with sum then list of venturis used in combination
+        tup = (round(summ,3), i)
+        a = 0
+        #getting rid of duplicates
+        for i in datalist:
+            if tup[0] == i[0]:
+                a = 1
+        if a == 0:
+            datalist.append(tup)
+        #append to master list
+        
+    j += 1
+
+#Sort the list by the sum
+#sort by lowest flowrate to highest flowrate
+#print(counter)
+datalist.sort()
+print(datalist)
+
+#for tup in datalist:
+ #   if tup[0] = 
+
+with open('myfile.csv', 'wt') as fp:
+    for item in datalist:
+        fp.write('{},'.format(item[0]))
+        for val in item[1]:
+            fp.write('{},'.format(val))
+        fp.write('\n')
+
+
